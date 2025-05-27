@@ -15,7 +15,7 @@ import pandas as pd
 import numpy as np
 from telegram import Bot
 from telegram.ext import Application, CommandHandler, ContextTypes
-from kucoin_universal_sdk import KucoinRESTClient
+from kucoin_universal_sdk import DefaultClient
 import websockets
 from dataclasses import dataclass, asdict
 import signal
@@ -138,7 +138,7 @@ class GridTradingBot:
     
     def __init__(self):
         self.load_config()
-        self.kucoin_client = KucoinRESTClient(
+        self.kucoin_client = DefaultClient(
             key=self.api_key,
             secret=self.api_secret,
             passphrase=self.api_passphrase,
