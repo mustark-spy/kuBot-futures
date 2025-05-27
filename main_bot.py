@@ -15,8 +15,7 @@ import pandas as pd
 import numpy as np
 from telegram import Bot
 from telegram.ext import Application, CommandHandler, ContextTypes
-from kucoin_universal_sdk.api import DefaultClient
-from kucoin_universal_sdk.generate.client_parameter import ClientParameter
+from kucoin_universal_sdk import DefaultClient
 import websockets
 from dataclasses import dataclass, asdict
 import signal
@@ -139,14 +138,29 @@ class GridTradingBot:
     
     def __init__(self):
         self.load_config()
-        self.kucoin_client = DefaultClient(
-    ClientParameter(
-        api_key=os.getenv("KUCOIN_API_KEY"),
-        api_secret=os.getenv("KUCOIN_API_SECRET"),
-        passphrase=os.getenv("KUCOIN_API_PASSPHRASE"),
-        is_sandbox=os.getenv("SANDBOX", "true").lower() == "true"
-    )
+        self.kucoin_
+http_transport_option = (
+    TransportOptionBuilder()
+    .set_keep_alive(True)
+    .set_max_pool_size(10)
+    .set_max_connection_per_pool(10)
+    .build()
 )
+
+client_option = (
+    ClientOptionBuilder()
+    .set_key(os.getenv("KUCOIN_API_KEY"))
+    .set_secret(os.getenv("KUCOIN_API_SECRET"))
+    .set_passphrase(os.getenv("KUCOIN_API_PASSPHRASE"))
+    .set_spot_endpoint(GLOBAL_API_ENDPOINT)
+    .set_futures_endpoint(GLOBAL_FUTURES_API_ENDPOINT)
+    .set_broker_endpoint(GLOBAL_BROKER_API_ENDPOINT)
+    .set_transport_option(http_transport_option)
+    .build()
+)
+
+client = DefaultClient(client_option)
+
         self.telegram_bot = Bot(token=self.telegram_token)
         self.persistence = DataPersistence(self.data_dir)
         
