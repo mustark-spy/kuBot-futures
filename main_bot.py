@@ -15,7 +15,7 @@ import pandas as pd
 import numpy as np
 from telegram import Bot
 from telegram.ext import Application, CommandHandler, ContextTypes
-from kucoin_universal_sdk import DefaultClient
+from kucoin_universal_sdk.api import DefaultClient
 import websockets
 from dataclasses import dataclass, asdict
 import signal
